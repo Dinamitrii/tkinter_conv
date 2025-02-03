@@ -10,13 +10,13 @@ import os
 def close_window():
     # if askokcancel is True, close the window
     if askokcancel(title='Close Application', message='Do you want to close MP3 downloader?'):
-        # this distroys the window
+        # this destroys the window
         window.destroy()
 
 
 # the function to download the mp3 audio
 def download_audio():
-    # the try statement to excute the download the video code
+    # the try statement to execute the download the video code
     # getting video url from entry
     mp3_link = url_entry.get()
     # checking if the entry and combobox is empty
@@ -55,7 +55,7 @@ def download_audio():
                 # updating the main window of the app
                 window.update()
 
-            # creating the YouTube object and passing the the on_progress function
+            # creating the YouTube object and passing the on_progress function
             audio = YouTube(mp3_link, on_progress_callback=on_progress)
             # extracting and downloading the audio file
             output = audio.streams.get_audio_only().download()
@@ -65,9 +65,9 @@ def download_audio():
             new_file = base + '.mp3'
             # this renames the mp3 file
             os.rename(output, new_file)
-            # popup for dispalying the mp3 downlaoded success message
+            # popup for displaying the mp3 downloaded success message
             showinfo(title='Download Complete', message='MP3 has been downloaded successfully.')
-            # ressetting the progress bar and the progress label
+            # resetting the progress bar and the progress label
             progress_label.config(text='')
             progress_bar['value'] = 0
             # the except will run when an expected error occurs during downloading
@@ -76,13 +76,13 @@ def download_audio():
                                                       'download the MP3\nThe following could ' \
                                                       'be the causes:\n->Invalid link\n->No internet connection\n' \
                                                       'Make sure you have stable internet connection and the MP3 link is valid')
-            # ressetting the progress bar and the progress label
+            # resetting the progress bar and the progress label
             progress_label.config(text='')
             progress_bar['value'] = 0
 
 
 # the function to run the download_audio function as a thread
-def downloadThread():
+def download_thread():
     t1 = threading.Thread(target=download_audio)
     t1.start()
 
@@ -153,7 +153,7 @@ progress_bar = ttk.Progressbar(window, orient=HORIZONTAL, length=450, mode='dete
 canvas.create_window(250, 300, window=progress_bar)
 
 # creating the button
-download_button = ttk.Button(window, text='Download MP3', style='TButton', command=downloadThread)
+download_button = ttk.Button(window, text='Download MP3', style='TButton', command=download_thread())
 # adding the button to the canvas
 canvas.create_window(240, 330, window=download_button)
 
